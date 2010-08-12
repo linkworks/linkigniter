@@ -170,7 +170,7 @@ class {controller_name} extends MY_Controller
       {
         $this->layouts->flash_redirect(
           'Ocurrió un error inesperado.', 
-          '{lowercase_controller_name}/all', 
+          '{lowercase_controller_name}/read/' . ${record_name}->id, 
           FLASH_ERROR
         );
       }
@@ -180,7 +180,8 @@ class {controller_name} extends MY_Controller
   // ----------------------------------------------------------------------
   
   /**
-   * Deletes a {record_name}
+   * Deletes a {record_name}. Assumes user already confirmed deletion through
+   * javascript.
    *
    * @param string $id 
    * @return void
@@ -188,6 +189,32 @@ class {controller_name} extends MY_Controller
    */
   public function delete($id)
   {
+    // Check the record exists
+    if ( ! ${record_name} = Doctrine::getTable('{model_name}')->findOneById($id))
+    {
+      // Black-hole the petition
+      show_404();
+      return;
+    }
     
+    // Delete the {record_name}
+    if (${record_name}->delete())
+    {
+      // Success
+      $this->layouts->flash_redirect(
+        'Registro eliminado exitosamente.', 
+        '{lowercase_controller_name}/all', 
+        FLASH_MESSAGE
+      );
+    }
+    else
+    {
+      // Error
+      $this->layouts->flash_redirect(
+        'Ocurrió un error inesperado.', 
+        '{lowercase_controller_name}/all', 
+        FLASH_ERROR
+      );
+    }
   }
 }

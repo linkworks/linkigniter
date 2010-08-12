@@ -1,7 +1,7 @@
 <?php
 /**
  * Generic CRUD controller for the License model.
- * Auto-generated with LinkIgniter's Bake (2010-08-12 01:19:08).
+ * Auto-generated with LinkIgniter's Bake (2010-08-12 01:23:39).
  * 
  * @author Ian Murray
  */
@@ -259,7 +259,7 @@ class Licenses extends MY_Controller
       {
         $this->layouts->flash_redirect(
           'Ocurrió un error inesperado.', 
-          'licenses/all', 
+          'licenses/read/' . $license->id, 
           FLASH_ERROR
         );
       }
@@ -269,7 +269,8 @@ class Licenses extends MY_Controller
   // ----------------------------------------------------------------------
   
   /**
-   * Deletes a license
+   * Deletes a license. Assumes user already confirmed deletion through
+   * javascript.
    *
    * @param string $id 
    * @return void
@@ -277,6 +278,32 @@ class Licenses extends MY_Controller
    */
   public function delete($id)
   {
+    // Check the record exists
+    if ( ! $license = Doctrine::getTable('License')->findOneById($id))
+    {
+      // Black-hole the petition
+      show_404();
+      return;
+    }
     
+    // Delete the license
+    if ($license->delete())
+    {
+      // Success
+      $this->layouts->flash_redirect(
+        'Registro eliminado exitosamente.', 
+        'licenses/all', 
+        FLASH_MESSAGE
+      );
+    }
+    else
+    {
+      // Error
+      $this->layouts->flash_redirect(
+        'Ocurrió un error inesperado.', 
+        'licenses/all', 
+        FLASH_ERROR
+      );
+    }
   }
 }
