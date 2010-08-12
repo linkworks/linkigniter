@@ -1,7 +1,7 @@
 <?php
 /**
  * Generic CRUD controller for the License model.
- * Auto-generated with LinkIgniter's Bake (2010-08-12 00:56:11).
+ * Auto-generated with LinkIgniter's Bake (2010-08-12 01:19:08).
  * 
  * @author Ian Murray
  */
@@ -60,6 +60,12 @@ class Licenses extends MY_Controller
       ),
       
       array(
+        'field' => 'email',
+        'label' => 'email',
+        'rules' => 'required|max_length[50]|trim|valid_email'
+      ),
+      
+      array(
         'field' => 'last_call_home',
         'label' => 'last_call_home',
         'rules' => 'callback_check_valid_datetime'
@@ -92,12 +98,14 @@ class Licenses extends MY_Controller
     }
     else
     {
-      // Create the record
+      // Create the license
       $license = new License();
       
       $license->id = $this->input->post('id');
       
       $license->server_address = $this->input->post('server_address');
+      
+      $license->email = $this->input->post('email');
       
       $license->last_call_home = $this->input->post('last_call_home');
       
@@ -130,7 +138,7 @@ class Licenses extends MY_Controller
   // ----------------------------------------------------------------------
   
   /**
-   * Lists a specific {record}
+   * Lists a specific license
    *
    * @param string $id 
    * @return void
@@ -156,7 +164,7 @@ class Licenses extends MY_Controller
   // ----------------------------------------------------------------------
   
   /**
-   * Updates a {record}
+   * Updates a license
    *
    * @param string $id 
    * @return void
@@ -164,13 +172,104 @@ class Licenses extends MY_Controller
    */
   public function update($id)
   {
+    // Page title
+    $this->layouts->set_title('Licenses - Update license #' . $id);
     
+    // Check the record exists
+    if ( ! $license = Doctrine::getTable('License')->findOneById($id))
+    {
+      // Black-hole the petition
+      show_404();
+      return;
+    }
+    
+    $this->load->library('form_validation');
+    
+    $this->form_validation->set_rules(array(
+      
+      array(
+        'field' => 'server_address',
+        'label' => 'server_address',
+        'rules' => 'required|max_length[15]|trim'
+      ),
+      
+      array(
+        'field' => 'email',
+        'label' => 'email',
+        'rules' => 'required|max_length[50]|trim|valid_email'
+      ),
+      
+      array(
+        'field' => 'last_call_home',
+        'label' => 'last_call_home',
+        'rules' => 'callback_check_valid_datetime'
+      ),
+      
+      array(
+        'field' => 'license_key',
+        'label' => 'license_key',
+        'rules' => 'max_length[255]|trim'
+      ),
+      
+      array(
+        'field' => 'install_key',
+        'label' => 'install_key',
+        'rules' => 'max_length[255]|trim'
+      ),
+      
+      array(
+        'field' => 'active',
+        'label' => 'active',
+        'rules' => 'required'
+      ),
+      
+    ));
+    
+    if ($this->form_validation->run() === FALSE)
+    {
+      // Form failed or hasn't been submited
+      $this->layotus->view('licenses/licenses_update', array('license' => $license));
+    }
+    else
+    {
+      // Update the license
+      
+      $license->server_address = $this->input->post('server_address');
+      
+      $license->email = $this->input->post('email');
+      
+      $license->last_call_home = $this->input->post('last_call_home');
+      
+      $license->license_key = $this->input->post('license_key');
+      
+      $license->install_key = $this->input->post('install_key');
+      
+      $license->active = $this->input->post('active');
+      
+      
+      if ($license->trySave())
+      {
+        $this->layouts->flash_redirect(
+          'Registro actualizado exitosamente.', 
+          'licenses/read/' . $license->id, 
+          FLASH_MESSAGE
+        );
+      }
+      else
+      {
+        $this->layouts->flash_redirect(
+          'Ocurrió un error inesperado.', 
+          'licenses/all', 
+          FLASH_ERROR
+        );
+      }
+    }
   }
   
   // ----------------------------------------------------------------------
   
   /**
-   * Deletes a {record}
+   * Deletes a license
    *
    * @param string $id 
    * @return void

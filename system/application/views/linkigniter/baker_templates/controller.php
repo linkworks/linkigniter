@@ -61,7 +61,7 @@ class {controller_name} extends MY_Controller
     }
     else
     {
-      // Create the record
+      // Create the {record_name}
       ${record_name} = new {model_name}();
       {field_listing}
       ${record_name}->{name} = $this->input->post('{name}');
@@ -89,7 +89,7 @@ class {controller_name} extends MY_Controller
   // ----------------------------------------------------------------------
   
   /**
-   * Lists a specific {record}
+   * Lists a specific {record_name}
    *
    * @param string $id 
    * @return void
@@ -115,7 +115,7 @@ class {controller_name} extends MY_Controller
   // ----------------------------------------------------------------------
   
   /**
-   * Updates a {record}
+   * Updates a {record_name}
    *
    * @param string $id 
    * @return void
@@ -123,13 +123,64 @@ class {controller_name} extends MY_Controller
    */
   public function update($id)
   {
+    // Page title
+    $this->layouts->set_title('{controller_name} - Update {record_name} #' . $id);
     
+    // Check the record exists
+    if ( ! ${record_name} = Doctrine::getTable('{model_name}')->findOneById($id))
+    {
+      // Black-hole the petition
+      show_404();
+      return;
+    }
+    
+    $this->load->library('form_validation');
+    
+    $this->form_validation->set_rules(array(
+      {validation_rules_for_update}
+      array(
+        'field' => '{name}',
+        'label' => '{name}',
+        'rules' => '{rules}'
+      ),
+      {/validation_rules_for_update}
+    ));
+    
+    if ($this->form_validation->run() === FALSE)
+    {
+      // Form failed or hasn't been submited
+      $this->layotus->view('{views_folder_name}/{views_folder_name}_update', array('{record_name}' => ${record_name}));
+    }
+    else
+    {
+      // Update the {record_name}
+      {field_listing_for_update}
+      ${record_name}->{name} = $this->input->post('{name}');
+      {/field_listing_for_update}
+      
+      if (${record_name}->trySave())
+      {
+        $this->layouts->flash_redirect(
+          'Registro actualizado exitosamente.', 
+          '{lowercase_controller_name}/read/' . ${record_name}->id, 
+          FLASH_MESSAGE
+        );
+      }
+      else
+      {
+        $this->layouts->flash_redirect(
+          'Ocurrió un error inesperado.', 
+          '{lowercase_controller_name}/all', 
+          FLASH_ERROR
+        );
+      }
+    }
   }
   
   // ----------------------------------------------------------------------
   
   /**
-   * Deletes a {record}
+   * Deletes a {record_name}
    *
    * @param string $id 
    * @return void

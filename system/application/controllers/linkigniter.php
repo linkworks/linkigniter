@@ -74,21 +74,35 @@ class LinkIgniter extends MY_Controller {
 	    echo "# Cooking " . $table . "<br>";
 	    // Create the controller
 	    $controller_data = array(
-	      'generation_date'           => date('Y-m-d H:i:s'),
-	      'controller_name'           => ucfirst($table),  // eg. Users or Users_groups
-	      'records'                   => $table,           // eg. users
-	      'record_name'               => Inflector::singularize($table), // eg. user  
-	      'model_name'                => ucfirst(Inflector::singularize($table)), // eg. user
-	      'lowercase_controller_name' => $table,           // eg. users
-	      'views_folder_name'         => $table,           // eg. users
-	      'validation_rules'          => array(),          // To be filled later
-	      'field_listing'             => array()           // To be filled later
+	      'generation_date'             => date('Y-m-d H:i:s'),
+	      'controller_name'             => ucfirst($table),  // eg. Users or Users_groups
+	      'records'                     => $table,           // eg. users
+	      'record_name'                 => Inflector::singularize($table), // eg. user  
+	      'model_name'                  => ucfirst(Inflector::singularize($table)), // eg. user
+	      'lowercase_controller_name'   => $table,           // eg. users
+	      'views_folder_name'           => $table,           // eg. users
+	      'validation_rules'            => array(),          // To be filled later
+	      'validation_rules_for_update' => array(),          // To be filled later
+	      'field_listing'               => array(),          // To be filled later
+	      'field_listing_for_update'    => array()           // To be filled later
 	    );
 	    
 	    // Validation rules & field listing
 	    $table_fields = Doctrine_Manager::connection()->import->listTableColumns($table);
 	    foreach ($table_fields as $field)
 	    {
+        // If the field is primary AND autoincremental, hide it from
+        // all forms
+	      if ($field['primary'] && $field['autoincrement'])
+	      {
+	        continue;
+	      }
+	      elseif ( ! $field['primary'])
+	      {
+	        // This allows to NOT show a primary field in the update form
+  	      $controller_data['field_listing_for_update'][]['name'] = $field['name'];
+	      }
+	      
 	      $controller_data['field_listing'][]['name'] = $field['name'];
 	      $validation_rules = array('name' => $field['name']);
 	      
@@ -128,6 +142,13 @@ class LinkIgniter extends MY_Controller {
 	      
 	      $validation_rules['rules'] = implode('|', $rules);
 	      $controller_data['validation_rules'][] = $validation_rules;
+	      
+	      if ( ! $field['primary'])
+	      {
+	        // This allows to NOT validate a primary field in 
+	        // the update form (which wouldn't be shown anyway)
+	        $controller_data['validation_rules_for_update'][] = $validation_rules;
+	      }
 	    } // foreach ($table_fields as $field)
       
       // Create it.
