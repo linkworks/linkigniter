@@ -1,0 +1,5 @@
+# This blocks access to the directory completely.
+# Use it where sensitive files are stored (like the
+# system folder).
+order allow,deny
+deny from all

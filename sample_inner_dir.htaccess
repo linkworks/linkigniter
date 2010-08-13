@@ -1,0 +1,3 @@
+# This blocks directory listing of files, 
+# but does not restrict access to them
+Options -indexes
