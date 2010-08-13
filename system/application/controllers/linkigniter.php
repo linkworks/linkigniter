@@ -2,10 +2,10 @@
 require(APPPATH . '/libraries/Inflector.php');
 
 class LinkIgniter extends MY_Controller {
-  public function index($ok = NULL, $tables_cooked = NULL)
+  public function index($ok = NULL, $tables_cooked = NULL, $zip = NULL)
   {
     $tables = Doctrine_Manager::connection()->import->listTables();
-    $this->load->view('linkigniter/cpanel', array('ok' => $ok, 'tables_cooked' => $tables_cooked, 'tables' => $tables));
+    $this->load->view('linkigniter/cpanel', array('ok' => $ok, 'tables_cooked' => $tables_cooked, 'tables' => $tables, 'zip' => $zip));
   }
   
   // ----------------------------------------------------------------------
@@ -73,6 +73,9 @@ class LinkIgniter extends MY_Controller {
 	  
 	  $cookable_tables = $this->input->post('tables');
 	  $cookable_tables = empty($cookable_tables) ? array() : $cookable_tables;
+	  
+	  // Save backup
+	  $zip_file = $this->backup();
 	  
 	  foreach ($tables as $table)
 	  {
@@ -303,6 +306,53 @@ class LinkIgniter extends MY_Controller {
       $tables_cooked++;
 	  }
 	  
-	  redirect('linkigniter/index/bake/' . $tables_cooked);
+	  redirect('linkigniter/index/bake/' . $tables_cooked . '/' . $zip_file);
+	}
+	
+	// ----------------------------------------------------------------------
+	
+	/**
+	 * Backs up all folders that could be overwritten
+	 *
+	 * @return void
+	 * @author Ian Murray
+	 */
+	public function backup()
+	{
+	  $this->load->library('zip');
+	  
+	  // Folders to be backed up
+	  $folders = array(
+	    'system/application/controllers/', 
+	    'system/application/views/', 
+	    'js/datatables_loaders/'
+	  );
+	  
+	  foreach ($folders as $folder)
+	  {
+	    $this->zip->read_dir($folder);
+	  }
+	  
+	  // Create backup dir if not exists
+	  if ( ! file_exists(APPPATH . '/baker_backups'))
+	  {
+	    mkdir(APPPATH . '/baker_backups');
+	  }
+	  
+	  // Add readme file
+	  $readme = <<<README
+This is an automatically generated backup of the following folders.
+  system/application/controllers/
+  system/application/views/
+  js/datatables_loaders
+README;
+	  
+	  $this->zip->add_data('readme.txt', $readme);
+	  
+	  // Save the backup
+	  $zip_name = 'backup_' . date('Ymd_His') . '.zip';
+	  $this->zip->archive(APPPATH . '/baker_backups/' . $zip_name);
+	  
+	  return $zip_name;
 	}
 }

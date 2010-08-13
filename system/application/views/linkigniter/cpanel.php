@@ -24,17 +24,19 @@
   {
     font-size: 18px;
   }
-  </style>
   
-  <script type="text/javascript">
-<?php if ($ok == 'tables'): ?>
-  alert('Tables created!');
-<?php elseif ($ok == 'deltables'): ?>
-  alert('Tables deleted!');
-<?php elseif ($ok == 'bake'): ?>
-  alert('Baking complete! <?php echo $tables_cooked ?> tables cooked.');
-<?php endif; ?>
-  </script>
+  .clear 
+  {
+    clear: both;
+  }
+  
+  .message
+  {
+    text-align: center;
+    color: green;
+    font-size: 16px;
+  }
+  </style>
 </head>
 <body>
   <div id="container">
@@ -54,10 +56,21 @@
           <option value="<?= $table ?>" selected="selected"><?= $table ?></option>
           <?php endforeach; ?>
         </select>
+        <br>
         <?php echo form_submit(array('value' => 'Bake these tables'))?>
         <?php echo form_close(); ?>
       </li>
     </ul>
+    <div class="clear"></div>
+    <div class="message">
+      <?php if ($ok == 'tables'): ?>
+        Tables created!
+      <?php elseif ($ok == 'deltables'): ?>
+        Tables deleted!
+      <?php elseif ($ok == 'bake'): ?>
+       Baking complete! <?php echo $tables_cooked ?> tables cooked. Backup of controllers views and datatables loaders saved to <?php echo $zip ?>.
+      <?php endif; ?>
+    </div>
   </div>
 </body>
 </html>
