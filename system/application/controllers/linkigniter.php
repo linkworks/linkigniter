@@ -234,6 +234,64 @@ class LinkIgniter extends MY_Controller {
         $views_path . '/' . $table . '/' . $table . '_create.php', 
         $this->parser->parse('linkigniter/baker_templates/create', $create_view_data, TRUE)
       );
+      
+      //
+      // The update view
+      //
+      $update_view_data = array(
+        'title' => Inflector::singularize($table),
+        'controller' => $table,
+        'fields' => array(),
+        'record_name' => Inflector::singularize($table)
+      );
+      
+      foreach ($table_fields as $field)
+      {
+        $temp = array(
+          'name' => $field['name'],
+          'friendly_name' => Inflector::humanize($field['name'])
+        );
+        
+        // Field Type
+        if ($field['name'] == 'password')
+        {
+          $temp['type'] = 'password';
+        }
+        else
+        {
+          $temp['type'] = 'input';
+        }
+        
+        $update_view_data['fields'][] = $temp;
+      }
+      
+      write_file(
+        $views_path . '/' . $table . '/' . $table . '_update.php', 
+        $this->parser->parse('linkigniter/baker_templates/update', $update_view_data, TRUE)
+      );
+      
+      // 
+      // Read view
+      //
+      $read_view_data = array(
+        'title' => Inflector::singularize($table),
+        'controller' => $table,
+        'fields' => array(),
+        'record_name' => Inflector::singularize($table)
+      );
+      
+      foreach ($table_fields as $field)
+      {
+        $read_view_data['fields'][] = array(
+          'name' => $field['name'],
+          'friendly_name' => Inflector::humanize($field['name'])
+        );
+      }
+      
+      write_file(
+        $views_path . '/' . $table . '/' . $table . '_read.php', 
+        $this->parser->parse('linkigniter/baker_templates/read', $read_view_data, TRUE)
+      );
 	  }
 	}
 }

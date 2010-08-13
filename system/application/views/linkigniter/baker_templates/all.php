@@ -1,5 +1,7 @@
 <h1>Lista de {title}</h1>
 
+<?php echo "<?php echo anchor('{controller}/create', 'Nuevo registro', array('class' => 'btn btn-main')); ?>"; ?>
+
 <table id="{table_id}">
   <thead>
     <tr>
@@ -28,7 +30,7 @@
       <td>
         <?php /* The 'view' button */ echo "<?php echo add_link_icon('{controller}/read/' . \${record_name}->id, 'Ver', 'read.png'); ?>"; ?>
         
-        <?php /* The 'edit' button */echo "<?php echo add_link_icon('{controller}/edit/' . \${record_name}->id, 'Editar', 'edit.png'); ?>"; ?>
+        <?php /* The 'edit' button */echo "<?php echo add_link_icon('{controller}/update/' . \${record_name}->id, 'Editar', 'edit.png'); ?>"; ?>
         
         <?php /* The 'delete' button */echo "<?php echo add_link_icon('{controller}/delete/' . \${record_name}->id, 'Eliminar', 'delete.png', 'if ( ! confirm(\'Está seguro de querer eliminar este registro?\')) return false;'); ?>"; ?>  
       </td>

@@ -1,7 +1,7 @@
 <?php
 /**
  * Generic CRUD controller for the License model.
- * Auto-generated with LinkIgniter's Bake (2010-08-13 00:17:23).
+ * Auto-generated with LinkIgniter's Bake (2010-08-13 00:53:50).
  * 
  * @author Ian Murray
  */
