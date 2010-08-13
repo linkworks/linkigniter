@@ -32,7 +32,7 @@
   </script>
   
   <!-- CSS Includes -->
-  <?php echo $this->layouts->print_css_includes(array(CSS_RESET, FANCY_BUTTONS, CSS_TIPTIP, CSS_ALERTS)); ?>
+  <?php echo $this->layouts->print_css_includes(array(CSS_RESET, FANCY_BUTTONS, CSS_TIPTIP, CSS_ALERTS, 'css/style')); ?>
   <!-- End CSS Includes -->
 </head>
 <body>

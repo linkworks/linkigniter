@@ -2,45 +2,39 @@
 require(APPPATH . '/libraries/Inflector.php');
 
 class LinkIgniter extends MY_Controller {
-  private function _forms($tables = FALSE, $fixtures = FALSE)
+  public function index($ok = NULL, $tables_cooked = NULL)
   {
-    $forms = 'Reminder: Make sure the tables do not exist already.
-    <form action="' . site_url('linkigniter/create_tables') . '" method="POST">
-		<input type="submit" name="action" value="Create Tables"></form><br /><br />';
-		
-		$forms .= ($tables) ? 'Done Tables!<br /><br />' : '';
-		
-		$forms .= 'This will delete all existing data!
-		<form action="' . site_url('linkigniter/load_fixtures') . '" method="POST">
-		<input type="submit" name="action" value="Load Fixtures"></form><br /><br />';
-		
-		$forms .= ($fixtures) ? 'Done Fixtures!' : '';
-		
-		return $forms;
-  }
-  
-  // ----------------------------------------------------------------------
-  
-  public function index($ok = NULL)
-  {
-    echo $this->_forms(($ok == 'tables') ? TRUE : FALSE, ($ok == 'fixtures') ? TRUE : FALSE);
+    $tables = Doctrine_Manager::connection()->import->listTables();
+    $this->load->view('linkigniter/cpanel', array('ok' => $ok, 'tables_cooked' => $tables_cooked, 'tables' => $tables));
   }
   
   // ----------------------------------------------------------------------
   
 	public function create_tables() 
 	{
-		if ($this->input->post('action')) 
+		Doctrine::createTablesFromModels();
+		redirect('linkigniter/index/tables');
+	}
+	
+	// ----------------------------------------------------------------------
+  
+	public function delete_tables() 
+	{
+		$tables = Doctrine_Manager::connection()->import->listTables();
+		
+		foreach ($tables as $table)
 		{
-			Doctrine::createTablesFromModels();
-			redirect('linkigniter/index/tables');
+		  Doctrine_Manager::connection()->export->dropTable($table);
 		}
+		
+		redirect('linkigniter/index/deltables');
 	}
 	
 	// ----------------------------------------------------------------------
 	
 	public function load_fixtures() 
 	{
+	  return;
 		if ($this->input->post('action')) 
 		{
 			Doctrine_Manager::connection()->execute(
@@ -55,6 +49,7 @@ class LinkIgniter extends MY_Controller {
 	
 	/**
 	 * Creates controllers and views for each table in the model.
+	 * Not the DRYest approach, but works.
 	 *
 	 * @return void
 	 * @author Ian Murray
@@ -71,9 +66,18 @@ class LinkIgniter extends MY_Controller {
 	  
 	  // Fetch table list from models and create controllers + views for each
 	  $tables = Doctrine_Manager::connection()->import->listTables();
+	  $tables_cooked = 0;
+	  
+	  $cookable_tables = $this->input->post('tables');
+	  $cookable_tables = empty($cookable_tables) ? array() : $cookable_tables;
+	  
 	  foreach ($tables as $table)
 	  {
-	    echo "# Cooking " . $table . "<br>";
+	    if ( ! in_array($table, $cookable_tables))
+	    {
+	      continue;
+	    }
+	    
 	    // Create the controller
 	    $controller_data = array(
 	      'generation_date'             => date('Y-m-d H:i:s'),
@@ -292,6 +296,10 @@ class LinkIgniter extends MY_Controller {
         $views_path . '/' . $table . '/' . $table . '_read.php', 
         $this->parser->parse('linkigniter/baker_templates/read', $read_view_data, TRUE)
       );
+      
+      $tables_cooked++;
 	  }
+	  
+	  redirect('linkigniter/index/bake/' . $tables_cooked);
 	}
 }
