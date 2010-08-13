@@ -161,7 +161,9 @@ class LinkIgniter extends MY_Controller {
       );
       
       // Now for the views!
+      //
       // The 'all' view
+      //
       $all_view_data = array(
         'title' => $table,
         'headers' => array(),
@@ -187,14 +189,50 @@ class LinkIgniter extends MY_Controller {
       }
       
       write_file(
-        $views_path . '/' . $table . '/' . $table . '_all.php', $this->parser->parse('linkigniter/baker_templates/all', $all_view_data, TRUE)
+        $views_path . '/' . $table . '/' . $table . '_all.php', 
+        $this->parser->parse('linkigniter/baker_templates/all', $all_view_data, TRUE)
       );
       
       // Also create the datatables trigger javascript file
       $datatables_trigger = array('table_id' => $table . '_datatable');
             
       write_file(
-        $js_path . 'datatables_' . $table . '.js', $this->parser->parse('linkigniter/baker_templates/datatables_loader.js', $datatables_trigger, TRUE)
+        $js_path . 'datatables_' . $table . '.js', 
+        $this->parser->parse('linkigniter/baker_templates/datatables_loader.js', $datatables_trigger, TRUE)
+      );
+      
+      //
+      // The 'create' view
+      //
+      $create_view_data = array(
+        'title' => Inflector::singularize($table),
+        'controller' => $table,
+        'fields' => array()
+      );
+      
+      foreach ($table_fields as $field)
+      {
+        $temp = array(
+          'name' => $field['name'],
+          'friendly_name' => Inflector::humanize($field['name'])
+        );
+        
+        // Field Type
+        if ($field['name'] == 'password')
+        {
+          $temp['type'] = 'password';
+        }
+        else
+        {
+          $temp['type'] = 'input';
+        }
+        
+        $create_view_data['fields'][] = $temp;
+      }
+      
+      write_file(
+        $views_path . '/' . $table . '/' . $table . '_create.php', 
+        $this->parser->parse('linkigniter/baker_templates/create', $create_view_data, TRUE)
       );
 	  }
 	}

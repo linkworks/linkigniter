@@ -1,7 +1,7 @@
 <?php
 /**
  * Generic CRUD controller for the License model.
- * Auto-generated with LinkIgniter's Bake (2010-08-12 23:46:38).
+ * Auto-generated with LinkIgniter's Bake (2010-08-13 00:17:23).
  * 
  * @author Ian Murray
  */
@@ -10,6 +10,19 @@ class Licenses extends MY_Controller
   public function __construct()
   {
     parent::__construct();
+  }
+  
+  // ----------------------------------------------------------------------
+  
+  /**
+   * "Redirects" to $this->all() internally.
+   *
+   * @return void
+   * @author Ian Murray
+   */
+  public function index()
+  {
+    $this->all();
   }
   
   // ----------------------------------------------------------------------
@@ -58,15 +71,15 @@ class Licenses extends MY_Controller
       ),
       
       array(
-        'field' => 'server_address',
-        'label' => 'server_address',
-        'rules' => 'required|max_length[15]|strip_tags|trim'
-      ),
-      
-      array(
         'field' => 'email',
         'label' => 'email',
         'rules' => 'required|max_length[50]|strip_tags|trim|valid_email'
+      ),
+      
+      array(
+        'field' => 'password',
+        'label' => 'password',
+        'rules' => 'required|max_length[50]|strip_tags|trim'
       ),
       
       array(
@@ -75,30 +88,12 @@ class Licenses extends MY_Controller
         'rules' => 'callback_check_valid_datetime'
       ),
       
-      array(
-        'field' => 'license_key',
-        'label' => 'license_key',
-        'rules' => 'max_length[255]|strip_tags|trim'
-      ),
-      
-      array(
-        'field' => 'install_key',
-        'label' => 'install_key',
-        'rules' => 'max_length[255]|strip_tags|trim'
-      ),
-      
-      array(
-        'field' => 'active',
-        'label' => 'active',
-        'rules' => 'required'
-      ),
-      
     ));
     
     if ($this->form_validation->run() === FALSE)
     {
       // Form failed or hasn't been submited
-      $this->layotus->view('licenses/licenses_create');
+      $this->layouts->view('licenses/licenses_create');
     }
     else
     {
@@ -107,17 +102,11 @@ class Licenses extends MY_Controller
       
       $license->id = $this->input->post('id');
       
-      $license->server_address = $this->input->post('server_address');
-      
       $license->email = $this->input->post('email');
       
+      $license->password = $this->input->post('password');
+      
       $license->last_call_home = $this->input->post('last_call_home');
-      
-      $license->license_key = $this->input->post('license_key');
-      
-      $license->install_key = $this->input->post('install_key');
-      
-      $license->active = $this->input->post('active');
       
       
       if ($license->trySave())
@@ -162,7 +151,7 @@ class Licenses extends MY_Controller
       return;
     }
     
-    $this->layotus->view('licenses/licenses_read', array('license' => $license));
+    $this->layouts->view('licenses/licenses_read', array('license' => $license));
   }
   
   // ----------------------------------------------------------------------
@@ -192,15 +181,15 @@ class Licenses extends MY_Controller
     $this->form_validation->set_rules(array(
       
       array(
-        'field' => 'server_address',
-        'label' => 'server_address',
-        'rules' => 'required|max_length[15]|strip_tags|trim'
-      ),
-      
-      array(
         'field' => 'email',
         'label' => 'email',
         'rules' => 'required|max_length[50]|strip_tags|trim|valid_email'
+      ),
+      
+      array(
+        'field' => 'password',
+        'label' => 'password',
+        'rules' => 'required|max_length[50]|strip_tags|trim'
       ),
       
       array(
@@ -209,46 +198,22 @@ class Licenses extends MY_Controller
         'rules' => 'callback_check_valid_datetime'
       ),
       
-      array(
-        'field' => 'license_key',
-        'label' => 'license_key',
-        'rules' => 'max_length[255]|strip_tags|trim'
-      ),
-      
-      array(
-        'field' => 'install_key',
-        'label' => 'install_key',
-        'rules' => 'max_length[255]|strip_tags|trim'
-      ),
-      
-      array(
-        'field' => 'active',
-        'label' => 'active',
-        'rules' => 'required'
-      ),
-      
     ));
     
     if ($this->form_validation->run() === FALSE)
     {
       // Form failed or hasn't been submited
-      $this->layotus->view('licenses/licenses_update', array('license' => $license));
+      $this->layouts->view('licenses/licenses_update', array('license' => $license));
     }
     else
     {
       // Update the license
       
-      $license->server_address = $this->input->post('server_address');
-      
       $license->email = $this->input->post('email');
       
+      $license->password = $this->input->post('password');
+      
       $license->last_call_home = $this->input->post('last_call_home');
-      
-      $license->license_key = $this->input->post('license_key');
-      
-      $license->install_key = $this->input->post('install_key');
-      
-      $license->active = $this->input->post('active');
       
       
       if ($license->trySave())

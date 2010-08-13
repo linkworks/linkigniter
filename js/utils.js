@@ -20,7 +20,7 @@ function alert_msg(message)
 function message_msg(message)
 {
   $('#message-bar').find('.the-message').html(message);
-  $('#alemessagert-bar').slideDown('fast');
+  $('#message-bar').slideDown('fast');
 }
 
 function close_msg()

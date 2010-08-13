@@ -135,7 +135,7 @@ div#alert-bar .close
 }
 
 div#error-bar .close:hover, 
-div#message-bar .close:hover.
+div#message-bar .close:hover,
 div#alert-bar .close:hover
 {
   color:#fff;

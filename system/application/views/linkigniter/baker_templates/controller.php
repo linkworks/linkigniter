@@ -14,6 +14,19 @@ class {controller_name} extends MY_Controller
   // ----------------------------------------------------------------------
   
   /**
+   * "Redirects" to $this->all() internally.
+   *
+   * @return void
+   * @author Ian Murray
+   */
+  public function index()
+  {
+    $this->all();
+  }
+  
+  // ----------------------------------------------------------------------
+  
+  /**
    * Lists all {records}
    *
    * @return void
@@ -61,7 +74,7 @@ class {controller_name} extends MY_Controller
     if ($this->form_validation->run() === FALSE)
     {
       // Form failed or hasn't been submited
-      $this->layotus->view('{views_folder_name}/{views_folder_name}_create');
+      $this->layouts->view('{views_folder_name}/{views_folder_name}_create');
     }
     else
     {
@@ -113,7 +126,7 @@ class {controller_name} extends MY_Controller
       return;
     }
     
-    $this->layotus->view('{views_folder_name}/{views_folder_name}_read', array('{record_name}' => ${record_name}));
+    $this->layouts->view('{views_folder_name}/{views_folder_name}_read', array('{record_name}' => ${record_name}));
   }
   
   // ----------------------------------------------------------------------
@@ -153,7 +166,7 @@ class {controller_name} extends MY_Controller
     if ($this->form_validation->run() === FALSE)
     {
       // Form failed or hasn't been submited
-      $this->layotus->view('{views_folder_name}/{views_folder_name}_update', array('{record_name}' => ${record_name}));
+      $this->layouts->view('{views_folder_name}/{views_folder_name}_update', array('{record_name}' => ${record_name}));
     }
     else
     {
