@@ -22,6 +22,9 @@ class LinkIgniter extends MY_Controller {
 	{
 		$tables = Doctrine_Manager::connection()->import->listTables();
 		
+		Doctrine_Manager::connection()->execute(
+			'SET FOREIGN_KEY_CHECKS = 0');
+		
 		foreach ($tables as $table)
 		{
 		  Doctrine_Manager::connection()->export->dropTable($table);
