@@ -46,6 +46,40 @@ define('FLASH_MESSAGE', 'message');
 define('FLASH_ERROR', 'error');
 define('FLASH_ALERT', 'alert');
 
+/*
+|--------------------------------------------------------------------------
+| Javascript includes constants
+|--------------------------------------------------------------------------
+*/
+
+define('DATATABLES_CORE', 'js/dataTables-1.7/media/js/jquery.dataTables.min');
+define('JQUERY_CORE', 'js/jquery-1.4.2.min');
+define('JQUERY_UI', 'js/jquery-ui-1.8.2.custom.min');
+define('JQUERY_TIPTIP', 'js/jquery.tipTip.minified');
+define('LINKIGNITER_UTILS', 'js/utils');
+
+define('DATATABLES_LOADERS_FOLDER', 'js/datatables_loaders');
+
+
+/*
+|--------------------------------------------------------------------------
+| CSS includes constants
+|--------------------------------------------------------------------------
+*/
+
+define('FANCY_BUTTONS', 'css/buttons');
+define('CSS_TIPTIP', 'css/tipTip');
+define('CSS_JQUERY_UI', 'css/ui-lightness/jquery-ui-1.8.2.custom');
+define('CSS_RESET', 'css/reset');
+define('CSS_ALERTS', 'css/alerts');
+
+/*
+|--------------------------------------------------------------------------
+| Images Constants
+|--------------------------------------------------------------------------
+*/
+
+define('ICON_PATH', 'images/icons/');
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

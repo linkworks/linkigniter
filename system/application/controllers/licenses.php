@@ -1,7 +1,7 @@
 <?php
 /**
  * Generic CRUD controller for the License model.
- * Auto-generated with LinkIgniter's Bake (2010-08-12 01:23:39).
+ * Auto-generated with LinkIgniter's Bake (2010-08-12 23:46:38).
  * 
  * @author Ian Murray
  */
@@ -27,7 +27,11 @@ class Licenses extends MY_Controller
     
     $licenses = Doctrine::getTable('License')->findAll();
     
-    $this->layouts->load('licenses/licenses_all', array($licenses));
+    $this->layouts->add_js(DATATABLES_CORE)
+                  ->add_js(DATATABLES_LOADERS_FOLDER . '/datatables_licenses')
+                  ->add_css(CSS_JQUERY_UI)
+                  ->add_css(CSS_TIPTIP)
+                  ->view('licenses/licenses_all', array('licenses' => $licenses));
   }
   
   // ----------------------------------------------------------------------
@@ -56,13 +60,13 @@ class Licenses extends MY_Controller
       array(
         'field' => 'server_address',
         'label' => 'server_address',
-        'rules' => 'required|max_length[15]|trim'
+        'rules' => 'required|max_length[15]|strip_tags|trim'
       ),
       
       array(
         'field' => 'email',
         'label' => 'email',
-        'rules' => 'required|max_length[50]|trim|valid_email'
+        'rules' => 'required|max_length[50]|strip_tags|trim|valid_email'
       ),
       
       array(
@@ -74,13 +78,13 @@ class Licenses extends MY_Controller
       array(
         'field' => 'license_key',
         'label' => 'license_key',
-        'rules' => 'max_length[255]|trim'
+        'rules' => 'max_length[255]|strip_tags|trim'
       ),
       
       array(
         'field' => 'install_key',
         'label' => 'install_key',
-        'rules' => 'max_length[255]|trim'
+        'rules' => 'max_length[255]|strip_tags|trim'
       ),
       
       array(
@@ -190,13 +194,13 @@ class Licenses extends MY_Controller
       array(
         'field' => 'server_address',
         'label' => 'server_address',
-        'rules' => 'required|max_length[15]|trim'
+        'rules' => 'required|max_length[15]|strip_tags|trim'
       ),
       
       array(
         'field' => 'email',
         'label' => 'email',
-        'rules' => 'required|max_length[50]|trim|valid_email'
+        'rules' => 'required|max_length[50]|strip_tags|trim|valid_email'
       ),
       
       array(
@@ -208,13 +212,13 @@ class Licenses extends MY_Controller
       array(
         'field' => 'license_key',
         'label' => 'license_key',
-        'rules' => 'max_length[255]|trim'
+        'rules' => 'max_length[255]|strip_tags|trim'
       ),
       
       array(
         'field' => 'install_key',
         'label' => 'install_key',
-        'rules' => 'max_length[255]|trim'
+        'rules' => 'max_length[255]|strip_tags|trim'
       ),
       
       array(

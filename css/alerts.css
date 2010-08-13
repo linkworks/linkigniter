@@ -1,0 +1,142 @@
+div#error-bar 
+{
+  position: fixed;
+  display:none;
+  top: 0;
+  /*left: -250px;*/
+  left: 0;
+  /*width: 500px;*/
+  width: 100%;
+  height: 40px;
+  
+  /*margin: 0 50%;*/
+  
+  background: #FFBBB6;
+  
+  border-bottom:2px solid #FF3934;
+  /*border-left:2px solid #FF3934;
+  border-right:2px solid #FF3934;*/
+  
+  
+  text-align: center;
+  line-height: 40px;
+  font-size: 14px;
+  font-family: Helvetica;
+  font-weight: bold;
+  
+  filter:alpha(opacity=80);
+  -moz-opacity:0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
+
+  /*-webkit-border-bottom-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;*/
+}
+
+div#message-bar 
+{
+  position: fixed;
+  display:none;
+  top: 0;
+  /*left: -250px;*/
+  left: 0;
+  /*width: 500px;*/
+  width: 100%;
+  height: 40px;
+  
+  /*margin: 0 50%;*/
+  
+  border-bottom:2px solid #60FF76;
+  /*border-left:2px solid #60FF76;
+  border-right:2px solid #60FF76;*/
+  background: #CDFFD1;
+  
+  text-align: center;
+  line-height: 40px;
+  font-size: 14px;
+  font-family: Helvetica;
+  font-weight: bold;
+  
+  filter:alpha(opacity=80);
+  -moz-opacity:0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
+
+  /*-webkit-border-bottom-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;*/
+}
+
+div#alert-bar 
+{
+  position: fixed;
+  display:none;
+  top: 0;
+  /*left: -250px;*/
+  left: 0;
+  /*width: 500px;*/
+  width: 100%;
+  height: 40px;
+  
+  /*margin: 0 50%;*/
+  
+  border-bottom:2px solid #FFCC3D;
+  /*border-left:2px solid #60FF76;
+  border-right:2px solid #60FF76;*/
+  background: #FFF898;
+  
+  text-align: center;
+  line-height: 40px;
+  font-size: 14px;
+  font-family: Helvetica;
+  font-weight: bold;
+  
+  filter:alpha(opacity=80);
+  -moz-opacity:0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
+
+  /*-webkit-border-bottom-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;*/
+}
+
+div#message-bar .the-message,
+div#error-bar .the-message,
+div#alert-bar .the-message,
+div#message-bar .the-message p, 
+div#error-bar .the-message p,
+div#alert-bar .the-message p
+{
+  display: inline;
+}
+
+div#error-bar .close, 
+div#message-bar .close,
+div#alert-bar .close
+{
+  float: right;
+  font-size:25px;
+  font-weight: bold;
+  
+  padding: 0 10px;
+  
+  cursor: pointer;
+}
+
+div#error-bar .close:hover, 
+div#message-bar .close:hover.
+div#alert-bar .close:hover
+{
+  color:#fff;
+}

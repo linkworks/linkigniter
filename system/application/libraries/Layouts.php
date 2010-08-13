@@ -1,9 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Layouts Class
+ * Layouts Class. PHP5 only. Supports method chaining.
  *
- * @version 0.2
  * @author Ian Murray
  */
 class Layouts {
@@ -110,7 +109,7 @@ class Layouts {
 		
 		if ($this->data['title_for_layout'] !== null) 
 		{
-		  $this->data['title_for_layout'] = '| ' . $this->data['title_for_layout'];
+		  $this->data['title_for_layout'] = '- ' . $this->data['title_for_layout'];
 		}
 		
 		//ob_start('ob_gzhandler');
@@ -133,6 +132,7 @@ class Layouts {
 	function set_header($header)
 	{
 	  $this->CI->output->set_header($header);
+	  return $this;
 	}
 	
 	// -----------------------------------------------------------------------------------------------
@@ -166,6 +166,7 @@ class Layouts {
 	{
 		//$this->title = $title;
 		$this->data['title_for_layout'] = $title;
+		$this;
 	}
 	
 	// -----------------------------------------------------------------------------------------------
@@ -179,6 +180,7 @@ class Layouts {
 	{
 		//$this->subtitle = $subtitle;
 		$this->data['subtitle_for_layout'] = $subtitle;
+		$this;
 	}
 	
 	// -----------------------------------------------------------------------------------------------
@@ -192,29 +194,19 @@ class Layouts {
 	 */
 	function add_js($js, $append_path = TRUE)
 	{
-	  if ($append_path) 
-	  {
-	    $path = base_url(); 
-	  }
-	  else 
-	  {
-	    $path = '';
-	  }
-	  
-	  if (substr($js, -1, 3) != '.js') 
-	  {
-	    $js .= '.js';
-	  }
+	  $js = $this->append_ext($js, 'js', $append_path);
 	  
 	  if (!is_array($js)) 
 	  {
 	    /* Assume its a string */
-	    $this->js_includes[] = $path . $js;
+	    $this->js_includes[] = $js;
 	  }
 	  else 
 	  {
-	    $this->js_includes += $path . $js;
+	    $this->js_includes += $js;
 	  }
+	  
+	  return $this;
 	}
 	
 	// -----------------------------------------------------------------------------------------------
@@ -222,15 +214,26 @@ class Layouts {
 	/**
 	 * Prints the javascript includes set with the add_js() method. To be called within the layout.
 	 *
+	 * @param array $extras
 	 * @return void
 	 * @author Ian Murray
 	 */
-	function print_js_includes()
+	function print_js_includes($extras = array())
 	{
+	  foreach ($extras as $key => $extra)
+	  {
+	    $extras[$key] = $this->append_ext($extra, 'js');
+	  }
+	  
 	  $string = "";
+	  foreach ($extras as $js) 
+	  {
+	    $string .= '<script type="text/javascript" src="' . $js . '"></script>' . "\n";
+	  }
+	  
 	  foreach ($this->js_includes as $js) 
 	  {
-	    $string .= '<script type="text/javascript" src="' . $js . '"></script>';
+	    $string .= '<script type="text/javascript" src="' . $js . '"></script>' . "\n";
 	  }
 	  
 	  return $string;
@@ -247,7 +250,33 @@ class Layouts {
 	 */
 	function add_css($css, $append_path = TRUE)
 	{
-	  if ($append_path) 
+	  $css = $this->append_ext($css, 'css', $append_path);
+	  
+	  if ( ! is_array($css)) 
+	  {
+	    /* Assume its a string */
+	    $this->css_includes[] = $css;
+	  }
+	  else 
+	  {
+	    $this->css_includes += $css;
+	  }
+	  
+	  return $this;
+	}
+	
+	// -----------------------------------------------------------------------------------------------
+  
+	/**
+	 * Appends an extension if necessary
+	 *
+	 * @param string $ext 
+	 * @return void
+	 * @author Ian Murray
+	 */
+	function append_ext($path_to_file, $ext, $append = TRUE)
+	{
+	  if ($append) 
 	  {
 	    $path = base_url(); 
 	  }
@@ -256,20 +285,13 @@ class Layouts {
 	    $path = '';
 	  }
 	  
-	  if (substr($css, -1, 3) != '.css') 
+	  $ext = '.' . $ext;
+    if (substr($path_to_file, -1, 3) != $ext) 
 	  {
-	    $css .= '.css';
+	    $path_to_file .= $ext;
 	  }
 	  
-	  if ( ! is_array($css)) 
-	  {
-	    /* Assume its a string */
-	    $this->css_includes[] = $path . $css;
-	  }
-	  else 
-	  {
-	    $this->css_includes += $path . $css;
-	  }
+	  return $path . $path_to_file;
 	}
 	
 	// -----------------------------------------------------------------------------------------------
@@ -277,15 +299,26 @@ class Layouts {
 	/**
 	 * Prints the css file includes. To be called within the layout.
 	 *
+ 	 * @param array $extras
 	 * @return void
 	 * @author Ian Murray
 	 */
-	function print_css_includes()
+	function print_css_includes($extras = array())
 	{
+	  foreach ($extras as $key => $extra)
+	  {
+	    $extras[$key] = $this->append_ext($extra, 'css');
+	  }
+	  
 	  $string = "";
+	  foreach ($extras as $css) 
+	  {
+	    $string .= '<link href="' . $css . '" rel="stylesheet" type="text/css" />' . "\n";
+	  }
+	  
 	  foreach ($this->css_includes as $css) 
 	  {
-	    $string .= '<link href="' . $css . '" rel="stylesheet" type="text/css" />';
+	    $string .= '<link href="' . $css . '" rel="stylesheet" type="text/css" />' . "\n";
 	  }
 	  
 	  return $string;

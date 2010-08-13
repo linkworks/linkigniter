@@ -66,6 +66,8 @@ class LinkIgniter extends MY_Controller {
 	  $this->load->library('parser'); // To parse the templates
 	  
 	  $controllers_path = APPPATH . '/controllers/';
+	  $views_path = APPPATH . '/views/';
+	  $js_path = DATATABLES_LOADERS_FOLDER . '/';
 	  
 	  // Fetch table list from models and create controllers + views for each
 	  $tables = Doctrine_Manager::connection()->import->listTables();
@@ -125,6 +127,7 @@ class LinkIgniter extends MY_Controller {
 	      if ($field['type'] == 'string') 
 	      { 
 	        $rules[] = 'max_length[' . $field['length'] . ']'; 
+	        $rules[] = 'strip_tags'; // Strips HTML from input
 	        $rules[] = 'trim';
 	      }
 	      
@@ -155,6 +158,43 @@ class LinkIgniter extends MY_Controller {
       write_file(
         $controllers_path . $table . '.php', 
         "<?php\n" . $this->parser->parse('linkigniter/baker_templates/controller', $controller_data, TRUE)
+      );
+      
+      // Now for the views!
+      // The 'all' view
+      $all_view_data = array(
+        'title' => $table,
+        'headers' => array(),
+        'footers' => array(),
+        'fields' => array(),
+        'records' => $table,
+        'record_name' => Inflector::singularize($table),
+        'controller' => $table,
+        'table_id' => $table . '_datatable'
+      );
+      
+      foreach($table_fields as $field)
+      {
+        $all_view_data['headers'][] = array('name' => Inflector::humanize($field['name']));
+        $all_view_data['fields'][] = array('name' => $field['name']);
+        $all_view_data['footers'][] = array('search_name' => $field['name'], 'friendly_name' => Inflector::humanize($field['name']));
+      }
+      
+      // Create controller's views directory & the all.php view itself
+      if ( ! file_exists($views_path . '/' . $table)) 
+      {
+        mkdir($views_path . '/' . $table);
+      }
+      
+      write_file(
+        $views_path . '/' . $table . '/' . $table . '_all.php', $this->parser->parse('linkigniter/baker_templates/all', $all_view_data, TRUE)
+      );
+      
+      // Also create the datatables trigger javascript file
+      $datatables_trigger = array('table_id' => $table . '_datatable');
+            
+      write_file(
+        $js_path . 'datatables_' . $table . '.js', $this->parser->parse('linkigniter/baker_templates/datatables_loader.js', $datatables_trigger, TRUE)
       );
 	  }
 	}
