@@ -21,7 +21,19 @@ foreach ($db as $connection_name => $db_values) {
 		'@' . $db[$connection_name]['hostname'] .
 		'/' . $db[$connection_name]['database'];
 
+	
 	$dConn = Doctrine_Manager::connection($dsn,$connection_name);
+}
+
+// Check connection
+// This is the only way I found to catch the connection error.
+try 
+{
+  $c = Doctrine_Manager::connection()->import->listTables();
+} 
+catch (Exception $e) 
+{
+  // Nothing for now
 }
 
 // CodeIgniter's Model class needs to be loaded

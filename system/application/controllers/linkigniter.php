@@ -4,7 +4,15 @@ require(APPPATH . '/libraries/Inflector.php');
 class LinkIgniter extends MY_Controller {
   public function index($ok = NULL, $tables_cooked = NULL, $zip = NULL)
   {
-    $tables = Doctrine_Manager::connection()->import->listTables();
+    try
+    {
+      $tables = Doctrine_Manager::connection()->import->listTables();
+    }
+    catch (Exception $e)
+    {
+      $tables = FALSE;
+    }
+    
     $this->load->view('linkigniter/cpanel', array('ok' => $ok, 'tables_cooked' => $tables_cooked, 'tables' => $tables, 'zip' => $zip));
   }
   
@@ -48,6 +56,92 @@ class LinkIgniter extends MY_Controller {
 		}
 	}
 	
+	// -----------------------------------------------------------------------------------
+	
+	/**
+	 * This handles console commands from the front-end
+	 *
+	 * @return void
+	 * @author Ian Murray
+	 */
+	public function console()
+	{
+	  // This should only be available if on localhost, so check that 
+	  // first.
+	  if (strpos(base_url(), 'localhost') === FALSE && strpos(base_url(), '127.0.0.1') === FALSE)
+	  {
+	    // No can do.
+	    show_404();
+	    return;
+	  }
+	  
+	  // Is there a command?
+	  if ( $this->input->post('command') === FALSE)
+	  {
+	    show_404();
+	    return;
+	  }
+	  
+	  // Handle the command. Use eval for now.
+	  // For security, the exec and eval functions are absolutely not
+	  // allowed in the command, or anywhere in the request anyway.
+	  $command = $this->input->post('command');
+	  
+	  if (strpos($command, 'exec') !== FALSE || strpos($command, 'eval') !== FALSE)
+	  {
+	    $this->layouts->ajax("fatal: exec and eval are not allowed.");
+	    return;
+	  }
+	  else
+	  {
+	    // Run the code in ob_start()
+	    ob_start();
+	    $response = eval($command);
+	    $data = ob_get_contents();
+	    ob_end_clean();
+	    
+	    if ($response !== FALSE)
+	    {
+	      // Code succesful
+	      if ($response === NULL && $data != '')
+	      {
+	        $send_output = <<<HTML
+# Output
+
+$data
+HTML;
+	      }
+	      elseif ($data == '' && $response !== NULL)
+	      {
+	        $send_output = <<<HTML
+# Returned data
+
+$response
+HTML;
+	      }
+	      elseif ($data != '' && $response !== NULL)
+	      {
+	        $send_output = <<<HTML
+# Returned data
+
+$response
+
+# Captured Output
+
+$data
+HTML;
+	      }
+	      else
+	      {
+	        $send_output = "# No output generated";
+	      }
+        
+	      $this->layouts->ajax($send_output);
+	      return;
+	    }
+	  }
+	}
+  
 	// ----------------------------------------------------------------------
 	
 	/**

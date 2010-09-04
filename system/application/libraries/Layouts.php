@@ -324,6 +324,20 @@ class Layouts {
 	  return $string;
 	}
 	
+	// -----------------------------------------------------------------------------------
+	
+	/**
+	 * This helps avoid echos in code.
+	 *
+	 * @param string $data 
+	 * @return void
+	 * @author Ian Murray
+	 */
+	function ajax($data)
+	{
+	  $this->CI->load->view('layouts/ajax', array('data' => $data));
+	}
+	
 	// -----------------------------------------------------------------------------------------------
 
 	
