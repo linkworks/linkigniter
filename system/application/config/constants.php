@@ -57,6 +57,7 @@ define('JQUERY_CORE', 'js/jquery-1.4.2.min');
 define('JQUERY_UI', 'js/jquery-ui-1.8.2.custom.min');
 define('JQUERY_TIPTIP', 'js/jquery.tipTip.minified');
 define('LINKIGNITER_UTILS', 'js/utils');
+define('LINKIGNITER_CONSOLE_JS', 'js/linkigniter_console');
 
 define('DATATABLES_LOADERS_FOLDER', 'js/datatables_loaders');
 
@@ -72,6 +73,7 @@ define('CSS_TIPTIP', 'css/tipTip');
 define('CSS_JQUERY_UI', 'css/ui-lightness/jquery-ui-1.8.2.custom');
 define('CSS_RESET', 'css/reset');
 define('CSS_ALERTS', 'css/alerts');
+define('LINKIGNITER_CONSOLE_CSS', 'css/linkigniter_console');
 
 /*
 |--------------------------------------------------------------------------

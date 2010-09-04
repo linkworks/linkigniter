@@ -1,0 +1,64 @@
+#linkigniter_console
+{
+  position: fixed;
+  bottom: -345px;
+  left: 50%;
+  margin-left: -300px;
+  width: 600px;
+  
+  background: #eee;
+  line-height: 13px;
+  font-size: 13px;
+  font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono';
+  
+  padding: 10px 10px 5px 10px;
+  
+  -webkit-border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-topright: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  
+  -moz-box-shadow: 0px 0px 10px #666; 
+  -webkit-box-shadow: 0px 0px 10px #666; 
+  box-shadow: 0px 0px 10px #666; 
+}
+
+#linkigniter_command
+{
+  font-size: 13px;
+  font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono';
+  width: 500px;
+  
+  border: 1px solid #ccc;
+}
+
+#linkigniter_command:focus 
+{
+  border: 1px solid #000;
+}
+
+#linkigniter_close
+{
+  cursor: pointer;
+}
+
+#linkigniter_loading
+{
+  display: none;
+  vertical-align: middle;
+  padding-top: 5px;
+}
+
+#linkigniter_response
+{
+  height: 300px;
+  overflow: auto;
+}
+
+#linkigniter_response pre 
+{
+  font-size: 13px;
+  font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono';
+}
