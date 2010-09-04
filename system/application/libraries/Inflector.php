@@ -23,14 +23,14 @@
 /**
  * Pluralize and singularize English words.
  *
- * Inflector pluralizes and singularizes English nouns.
+ * Cake_Inflector pluralizes and singularizes English nouns.
  * Used by Cake's naming conventions throughout the framework.
  *
  * @package       cake
  * @subpackage    cake.cake.libs
- * @link          http://book.cakephp.org/view/1478/Inflector
+ * @link          http://book.cakephp.org/view/1478/Cake_Inflector
  */
-class Inflector {
+class Cake_Inflector {
 
 /**
  * Plural inflector rules
@@ -288,7 +288,7 @@ class Inflector {
 	var $_humanize = array();
 
 /**
- * Gets a reference to the Inflector object instance
+ * Gets a reference to the Cake_Inflector object instance
  *
  * @return object
  * @access public
@@ -297,7 +297,7 @@ class Inflector {
 		static $instance = array();
 
 		if (!$instance) {
-			$instance[0] =& new Inflector();
+			$instance[0] =& new Cake_Inflector();
 		}
 		return $instance[0];
 	}
@@ -331,13 +331,13 @@ class Inflector {
  * ### Usage:
  *
  * {{{
- * Inflector::rules('plural', array('/^(inflect)or$/i' => '\1ables'));
- * Inflector::rules('plural', array(
+ * Cake_Inflector::rules('plural', array('/^(inflect)or$/i' => '\1ables'));
+ * Cake_Inflector::rules('plural', array(
  *     'rules' => array('/^(inflect)ors$/i' => '\1ables'),
  *     'uninflected' => array('dontinflectme'),
  *     'irregular' => array('red' => 'redlings')
  * ));
- * Inflector::rules('transliteration', array('/å/' => 'aa'));
+ * Cake_Inflector::rules('transliteration', array('/å/' => 'aa'));
  * }}}
  *
  * @param string $type The type of inflection, either 'plural', 'singular' or 'transliteration'
@@ -349,7 +349,7 @@ class Inflector {
  * @static
  */
 	function rules($type, $rules, $reset = false) {
-		$_this =& Inflector::getInstance();
+		$_this =& Cake_Inflector::getInstance();
 		$var = '_'.$type;
 
 		switch ($type) {
@@ -395,7 +395,7 @@ class Inflector {
  * @link http://book.cakephp.org/view/1479/Class-methods
  */
 	function pluralize($word) {
-		$_this =& Inflector::getInstance();
+		$_this =& Cake_Inflector::getInstance();
 
 		if (isset($_this->_pluralized[$word])) {
 			return $_this->_pluralized[$word];
@@ -442,7 +442,7 @@ class Inflector {
  * @link http://book.cakephp.org/view/1479/Class-methods
  */
 	function singularize($word) {
-		$_this =& Inflector::getInstance();
+		$_this =& Cake_Inflector::getInstance();
 
 		if (isset($_this->_singularized[$word])) {
 			return $_this->_singularized[$word];
@@ -491,9 +491,9 @@ class Inflector {
  * @link http://book.cakephp.org/view/1479/Class-methods
  */
 	function camelize($lowerCaseAndUnderscoredWord) {
-		$_this =& Inflector::getInstance();
+		$_this =& Cake_Inflector::getInstance();
 		if (!($result = $_this->_cache(__FUNCTION__, $lowerCaseAndUnderscoredWord))) {
-			$result = str_replace(' ', '', Inflector::humanize($lowerCaseAndUnderscoredWord));
+			$result = str_replace(' ', '', Cake_Inflector::humanize($lowerCaseAndUnderscoredWord));
 			$_this->_cache(__FUNCTION__, $lowerCaseAndUnderscoredWord, $result);
 		}
 		return $result;
@@ -509,7 +509,7 @@ class Inflector {
  * @link http://book.cakephp.org/view/1479/Class-methods
  */
 	function underscore($camelCasedWord) {
-		$_this =& Inflector::getInstance();
+		$_this =& Cake_Inflector::getInstance();
 		if (!($result = $_this->_cache(__FUNCTION__, $camelCasedWord))) {
 			$result = strtolower(preg_replace('/(?<=\\w)([A-Z])/', '_\\1', $camelCasedWord));
 			$_this->_cache(__FUNCTION__, $camelCasedWord, $result);
@@ -528,7 +528,7 @@ class Inflector {
  * @link http://book.cakephp.org/view/1479/Class-methods
  */
 	function humanize($lowerCaseAndUnderscoredWord) {
-		$_this =& Inflector::getInstance();
+		$_this =& Cake_Inflector::getInstance();
 		if (!($result = $_this->_cache(__FUNCTION__, $lowerCaseAndUnderscoredWord))) {
 			$result = ucwords(str_replace('_', ' ', $lowerCaseAndUnderscoredWord));
 			$_this->_cache(__FUNCTION__, $lowerCaseAndUnderscoredWord, $result);
@@ -546,9 +546,9 @@ class Inflector {
  * @link http://book.cakephp.org/view/1479/Class-methods
  */
 	function tableize($className) {
-		$_this =& Inflector::getInstance();
+		$_this =& Cake_Inflector::getInstance();
 		if (!($result = $_this->_cache(__FUNCTION__, $className))) {
-			$result = Inflector::pluralize(Inflector::underscore($className));
+			$result = Cake_Inflector::pluralize(Cake_Inflector::underscore($className));
 			$_this->_cache(__FUNCTION__, $className, $result);
 		}
 		return $result;
@@ -564,9 +564,9 @@ class Inflector {
  * @link http://book.cakephp.org/view/1479/Class-methods
  */
 	function classify($tableName) {
-		$_this =& Inflector::getInstance();
+		$_this =& Cake_Inflector::getInstance();
 		if (!($result = $_this->_cache(__FUNCTION__, $tableName))) {
-			$result = Inflector::camelize(Inflector::singularize($tableName));
+			$result = Cake_Inflector::camelize(Cake_Inflector::singularize($tableName));
 			$_this->_cache(__FUNCTION__, $tableName, $result);
 		}
 		return $result;
@@ -582,9 +582,9 @@ class Inflector {
  * @link http://book.cakephp.org/view/1479/Class-methods
  */
 	function variable($string) {
-		$_this =& Inflector::getInstance();
+		$_this =& Cake_Inflector::getInstance();
 		if (!($result = $_this->_cache(__FUNCTION__, $string))) {
-			$string2 = Inflector::camelize(Inflector::underscore($string));
+			$string2 = Cake_Inflector::camelize(Cake_Inflector::underscore($string));
 			$replace = strtolower(substr($string2, 0, 1));
 			$result = preg_replace('/\\w/', $replace, $string2, 1);
 			$_this->_cache(__FUNCTION__, $string, $result);
@@ -599,14 +599,14 @@ class Inflector {
  * @param string $string the string you want to slug
  * @param string $replacement will replace keys in map
  * @param array $map extra elements to map to the replacement
- * @deprecated $map param will be removed in future versions. Use Inflector::rules() instead
+ * @deprecated $map param will be removed in future versions. Use Cake_Inflector::rules() instead
  * @return string
  * @access public
  * @static
  * @link http://book.cakephp.org/view/1479/Class-methods
  */
 	function slug($string, $replacement = '_', $map = array()) {
-		$_this =& Inflector::getInstance();
+		$_this =& Cake_Inflector::getInstance();
 
 		if (is_array($replacement)) {
 			$map = $replacement;

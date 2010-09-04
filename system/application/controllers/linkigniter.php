@@ -89,8 +89,8 @@ class LinkIgniter extends MY_Controller {
 	      'generation_date'             => date('Y-m-d H:i:s'),
 	      'controller_name'             => ucfirst($table),  // eg. Users or Users_groups
 	      'records'                     => $table,           // eg. users
-	      'record_name'                 => Inflector::singularize($table), // eg. user  
-	      'model_name'                  => ucfirst(Inflector::singularize($table)), // eg. user
+	      'record_name'                 => Cake_Inflector::singularize($table), // eg. user  
+	      'model_name'                  => ucfirst(Cake_Inflector::singularize($table)), // eg. user
 	      'lowercase_controller_name'   => $table,           // eg. users
 	      'views_folder_name'           => $table,           // eg. users
 	      'validation_rules'            => array(),          // To be filled later
@@ -180,16 +180,16 @@ class LinkIgniter extends MY_Controller {
         'footers' => array(),
         'fields' => array(),
         'records' => $table,
-        'record_name' => Inflector::singularize($table),
+        'record_name' => Cake_Inflector::singularize($table),
         'controller' => $table,
         'table_id' => $table . '_datatable'
       );
       
       foreach($table_fields as $field)
       {
-        $all_view_data['headers'][] = array('name' => Inflector::humanize($field['name']));
+        $all_view_data['headers'][] = array('name' => Cake_Inflector::humanize($field['name']));
         $all_view_data['fields'][] = array('name' => $field['name']);
-        $all_view_data['footers'][] = array('search_name' => $field['name'], 'friendly_name' => Inflector::humanize($field['name']));
+        $all_view_data['footers'][] = array('search_name' => $field['name'], 'friendly_name' => Cake_Inflector::humanize($field['name']));
       }
       
       // Create controller's views directory & the all.php view itself
@@ -215,7 +215,7 @@ class LinkIgniter extends MY_Controller {
       // The 'create' view
       //
       $create_view_data = array(
-        'title' => Inflector::singularize($table),
+        'title' => Cake_Inflector::singularize($table),
         'controller' => $table,
         'fields' => array()
       );
@@ -224,7 +224,7 @@ class LinkIgniter extends MY_Controller {
       {
         $temp = array(
           'name' => $field['name'],
-          'friendly_name' => Inflector::humanize($field['name'])
+          'friendly_name' => Cake_Inflector::humanize($field['name'])
         );
         
         // Field Type
@@ -249,17 +249,17 @@ class LinkIgniter extends MY_Controller {
       // The update view
       //
       $update_view_data = array(
-        'title' => Inflector::singularize($table),
+        'title' => Cake_Inflector::singularize($table),
         'controller' => $table,
         'fields' => array(),
-        'record_name' => Inflector::singularize($table)
+        'record_name' => Cake_Inflector::singularize($table)
       );
       
       foreach ($table_fields as $field)
       {
         $temp = array(
           'name' => $field['name'],
-          'friendly_name' => Inflector::humanize($field['name'])
+          'friendly_name' => Cake_Inflector::humanize($field['name'])
         );
         
         // Field Type
@@ -284,17 +284,17 @@ class LinkIgniter extends MY_Controller {
       // Read view
       //
       $read_view_data = array(
-        'title' => Inflector::singularize($table),
+        'title' => Cake_Inflector::singularize($table),
         'controller' => $table,
         'fields' => array(),
-        'record_name' => Inflector::singularize($table)
+        'record_name' => Cake_Inflector::singularize($table)
       );
       
       foreach ($table_fields as $field)
       {
         $read_view_data['fields'][] = array(
           'name' => $field['name'],
-          'friendly_name' => Inflector::humanize($field['name'])
+          'friendly_name' => Cake_Inflector::humanize($field['name'])
         );
       }
       
