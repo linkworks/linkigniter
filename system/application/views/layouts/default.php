@@ -28,6 +28,11 @@
       echo $type . '_msg("' . $message . '");';
     }
     ?>
+    
+    // Console Output
+    <?php if (isset($console_output)): ?>
+    show_console_big();
+    <?php endif; ?>
   });
   </script>
   
@@ -60,7 +65,7 @@
     <span id="linkigniter_loading"><img src="<?php echo base_url() ?>images/linkigniter_console_loader.gif"></span>
     <hr size="1" noshadow="noshadow">
     <div id="linkigniter_response">
-      
+      <?php echo (isset($console_output) ? $console_output : '') ?>
     </div>
   </div>
   <!-- End Linkigniter Console -->
