@@ -1,0 +1,7 @@
+#!/usr/bin/env php
+<?php
+define('BASEPATH', '..'); // Without this we can't import config/database.php
+define('APPPATH', dirname(__FILE__));
+
+chdir(dirname(__FILE__));
+require('doctrine_for_cli.php');
