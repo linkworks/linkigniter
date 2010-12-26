@@ -24,7 +24,8 @@
 | NO TRAILING SLASH!
 |
 */
-	$system_folder = "system";
+	//$system_folder = "system";
+	$system_folder = realpath("../system");
 
 /*
 |---------------------------------------------------------------
@@ -42,6 +43,7 @@
 |
 */
 	$application_folder = "application";
+	//$application_folder = realpath("../system/application");
 
 /*
 |===============================================================
