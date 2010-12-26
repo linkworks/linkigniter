@@ -1,0 +1,32 @@
+# Put all table definitions and relations in this file, 
+# or distribute them in different files within this folder.
+#
+# More info and docs on YAML schema files on the following link:
+#   http://www.doctrine-project.org/projects/orm/1.2/docs/manual/yaml-schema-files/en
+#
+# To create models and the database tables, execute:
+#   ./doctrine generate-models-yaml
+#   ./doctrine build-all-reload force 
+#
+# The latter drops the database and recreates it, be careful!
+# -----------------------------------------------------------------------------------
+  
+User:
+  tableName: users
+  columns:
+    id:       { type: integer, primary: true, autoincrement: true }
+    username: { type: string(64), unique: true, notnull: true }
+    password: { type: string(32), notnull: true }
+    
+    group_id: { type: integer }
+  
+  relations:
+    Group:    { local: group_id, foreign: id, foreignAlias: Users }
+
+# -----------------------------------------------------------------------------------
+
+Group:
+  tableName: groups
+  columns:
+    id:   { type: integer, primary: true, autoincrement: true }
+    name: { type: string(32), unique: true }
