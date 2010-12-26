@@ -47,37 +47,27 @@
 	margin-left: -125px;
 	margin-top: -15px;
 	padding: 14px 0 2px 0;
-	/*border: 1px solid #ddd;*/
+	border: 1px solid #ddd;
 	text-align: center;
-	color: #fff;
+	color: #999;
 	font-size: 14px;
-	background-color: #FFB234;
-  -moz-border-radius: 10px; /* FF1+ */
-  -webkit-border-radius: 10px; /* Saf3+, Chrome */
-  border-radius: 10px; /* Opera 10.5, IE 9 */
-  
-  -moz-box-shadow: 0px 0px 5px #7E7E7E; /* FF3.5+ */
-  -webkit-box-shadow: 0px 0px 5px #7E7E7E; /* Saf3.0+, Chrome */
-  box-shadow: 0px 0px 5px #7E7E7E; /* Opera 10.5, IE 9.0 */
+	background-color: white;
 }
 
 .dataTables_length {
 	width: 40%;
 	float: left;
-	font-size: 14px;
 }
 
 .dataTables_filter {
 	width: 50%;
 	float: right;
 	text-align: right;
-	font-size: 14px;
 }
 
 .dataTables_info {
-	width: 40%;
+	width: 60%;
 	float: left;
-	font-size: 14px;
 }
 
 .dataTables_paginate {
@@ -85,7 +75,6 @@
 	* width: 50px;
 	float: right;
 	text-align: right;
-	font-size:14px;
 }
 
 /* Pagination nested */
@@ -122,8 +111,6 @@ table.display {
 	clear: both;
 	width: 100%;
 	
-	font-size:12px;
-	
 	/* Note Firefox 3.5 and before have a bug with border-collapse
 	 * ( https://bugzilla.mozilla.org/show%5Fbug.cgi?id=155955 ) 
 	 * border-spacing: 0; is one possible option. Conditional-css.com is
@@ -144,10 +131,6 @@ table.display thead th {
 	font-weight: bold;
 	cursor: pointer;
 	* cursor: hand;
-}
-
-table.display thead th .css-right {
-  float: right;
 }
 
 table.display tfoot th {
