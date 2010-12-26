@@ -45,18 +45,25 @@ code {
 
 <h1>Welcome to LinkIgniter!</h1>
 
-<p>LinkIgniter is a modified version of CodeIgniter 1.7.3. It comes bundled with Doctrine ORM, and is restructured to include all public files on the public folder.</p>
+<p>LinkIgniter is a modified version of CodeIgniter 1.7.3. It comes bundled with Doctrine ORM, and is restructured the following way:</p>
+<code>
+  /application/ &lt- The application folder has been moved here.<br>
+  /public/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;- all public files and folders should go there, css and js files, etc. Your server's DocumentRoot should point here<br>
+  /system/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;- Classic system folder, nothing to modify or see here.<br>
+  /utilities/ &nbsp;&nbsp;&lt;- Contains the Doctrine CLI
+</code>
 
 <p>Create your model schema by creating YAML schema files in the following folder:</p>
-<code>system/application/schema</code>
+<code>/application/database/schema</code>
 
 <p>Then edit the system/application/database.php file. After that, to create the PHP models, the database and tables, execute the following commands on the terminal:</p>
 <code>
-  $ cd /path/to/the/project/folder/system/application<br>
-  $ ./doctrine generate-models-yaml<br>
-  $ ./doctrine build-all-reload force 
+  $ cd /path/to/the/project/folder/utilities<br>
+  $ ./create-all-load-data
 </code>
 
+<p>That creates all models in the application/models folder, drops and creates the database, creates the tables and loads the data.
+<hr>
 <p>The page you are looking at is being generated dynamically by LinkIgniter.</p>
 
 <p>If you would like to edit this page you'll find it located at:</p>
