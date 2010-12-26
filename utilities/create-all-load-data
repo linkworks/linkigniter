@@ -1,0 +1,7 @@
+#!/bin/sh
+echo "---> Rebuilding database (Drops current DB if exists and creates all again)"
+./doctrine rebuild-db force
+echo "---> Generating models from YAML schema file"
+./doctrine generate-models-yaml
+echo "---> Loading data from fixtures"
+./doctrine load-data

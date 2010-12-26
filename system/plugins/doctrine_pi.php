@@ -2,7 +2,8 @@
 // system/application/plugins/doctrine_pi.php
 
 // load Doctrine library
-require_once APPPATH.'/plugins/doctrine/lib/Doctrine.php';
+// require_once APPPATH.'/plugins/doctrine/lib/Doctrine.php';
+require_once BASEPATH . '/plugins/doctrine/lib/Doctrine.php';
 
 // load database configuration from CodeIgniter
 require_once APPPATH.'/config/database.php';

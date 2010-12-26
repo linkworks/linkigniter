@@ -1,0 +1,7 @@
+#!/usr/bin/env php
+<?php
+define('BASEPATH', realpath('../system'));
+define('APPPATH', realpath('../application'));
+
+chdir(dirname(__FILE__));
+require('doctrine_for_cli.php');

@@ -42,8 +42,8 @@
 | NO TRAILING SLASH!
 |
 */
-	$application_folder = "application";
-	//$application_folder = realpath("../system/application");
+	//$application_folder = "application";
+	$application_folder = realpath("../application");
 
 /*
 |===============================================================

@@ -1,0 +1,9 @@
+User:
+  ian:
+    username: Ian
+    password: ian
+    Group: el_grupo
+
+Group:
+  el_grupo:
+    name: Grupo 1

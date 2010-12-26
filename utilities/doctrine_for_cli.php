@@ -7,15 +7,22 @@
  *
  * @author Ian Murray
  */
-require_once('plugins/doctrine_pi.php');
+require_once(BASEPATH . '/plugins/doctrine_pi.php');
 
 // Configure Doctrine Cli
 // Normally these are arguments to the cli tasks but if they are set here the arguments will be auto-filled
-$config = array('data_fixtures_path'  =>  dirname(__FILE__) . DIRECTORY_SEPARATOR . '/fixtures',
+/*$config = array('data_fixtures_path'  =>  dirname(__FILE__) . DIRECTORY_SEPARATOR . '/fixtures',
                 'models_path'         =>  dirname(__FILE__) . DIRECTORY_SEPARATOR . '/models',
                 'migrations_path'     =>  dirname(__FILE__) . DIRECTORY_SEPARATOR . '/migrations',
                 'sql_path'            =>  dirname(__FILE__) . DIRECTORY_SEPARATOR . '/sql',
                 'yaml_schema_path'    =>  dirname(__FILE__) . DIRECTORY_SEPARATOR . '/schema',
+                );*/
+
+$config = array('data_fixtures_path'  =>  APPPATH . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'fixtures',
+                'models_path'         =>  APPPATH . DIRECTORY_SEPARATOR . 'models',
+                'migrations_path'     =>  APPPATH . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations',
+                'sql_path'            =>  APPPATH . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'sql',
+                'yaml_schema_path'    =>  APPPATH . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'schema',
                 );
 
 $config['generate_models_options'] = array(
