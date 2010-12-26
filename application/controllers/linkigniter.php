@@ -1,7 +1,5 @@
 <?php
-require(APPPATH . '/libraries/Inflector.php');
-
-class LinkIgniter extends MY_Controller {
+class LinkIgniter extends LI_Controller {
   public function index($ok = NULL, $tables_cooked = NULL, $zip = NULL)
   {
     try
@@ -153,6 +151,14 @@ HTML;
 	 */
 	public function bake()
 	{
+	  // For some reason the inflector library does not work on php 5.3
+	  if (phpversion() >= "5.3")
+	  {
+	    die('The baker needs to be run on a PHP version prior to 5.3');
+	  }
+	  
+	  require(APPPATH . '/libraries/Cake_Inflector.php');
+	  
 	  $this->load->helper('file');
 	  //$this->load->helper('inflector');
 	  $this->load->library('parser'); // To parse the templates
