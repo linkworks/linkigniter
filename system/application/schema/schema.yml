@@ -8,7 +8,7 @@
 #   ./doctrine generate-models-yaml
 #   ./doctrine build-all-reload force 
 #
-# The latter drops the database and recreates it, be careful!
+# The latter drops the database and recreates it, be careful
 # -----------------------------------------------------------------------------------
   
 User:
