@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Welcome to CodeIgniter</title>
+<title>Welcome to LinkIgniter</title>
 
 <style type="text/css">
 
@@ -43,9 +43,21 @@ code {
 </head>
 <body>
 
-<h1>Welcome to CodeIgniter!</h1>
+<h1>Welcome to LinkIgniter!</h1>
 
-<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
+<p>LinkIgniter is a modified version of CodeIgniter 1.7.3. It comes bundled with Doctrine ORM, and is restructured to include all public files on the public folder.</p>
+
+<p>Create your model schema by creating YAML schema files in the following folder:</p>
+<code>system/application/schema</code>
+
+<p>Then edit the system/application/database.php file. After that, to create the PHP models, the database and tables, execute the following commands on the terminal:</p>
+<code>
+  $ cd /path/to/the/project/folder/system/application<br>
+  $ ./doctrine generate-models-yaml<br>
+  $ ./doctrine build-all-reload force 
+</code>
+
+<p>The page you are looking at is being generated dynamically by LinkIgniter.</p>
 
 <p>If you would like to edit this page you'll find it located at:</p>
 <code>system/application/views/welcome_message.php</code>
@@ -53,7 +65,7 @@ code {
 <p>The corresponding controller for this page is found at:</p>
 <code>system/application/controllers/welcome.php</code>
 
-<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
+<p>If you have doubts, read the CodeIgniter's <a href="user_guide/">User Guide</a>.</p>
 
 
 <p><br />Page rendered in {elapsed_time} seconds</p>
