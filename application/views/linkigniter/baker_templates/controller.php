@@ -41,6 +41,7 @@ class {controller_name} extends LI_Controller
     
     $this->layouts->add_js(DATATABLES_CORE)
                   ->add_js(DATATABLES_LOADERS_FOLDER . '/datatables_{views_folder_name}')
+                  ->add_css(CSS_DATATABLE)
                   ->add_css(CSS_JQUERY_UI)
                   ->add_css(CSS_TIPTIP)
                   ->view('{views_folder_name}/{views_folder_name}_all', array('{records}' => ${records}));

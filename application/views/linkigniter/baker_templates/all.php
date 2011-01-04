@@ -2,7 +2,7 @@
 
 <?php echo "<?php echo anchor('{controller}/create', 'Nuevo registro', array('class' => 'btn btn-main')); ?>"; ?>
 
-<table id="{table_id}">
+<table id="{table_id}" class="display">
   <thead>
     <tr>
       {headers}

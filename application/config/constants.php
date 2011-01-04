@@ -54,6 +54,7 @@ define('FLASH_ALERT', 'alert');
 
 define('DATATABLES_CORE', 'js/dataTables-1.7/media/js/jquery.dataTables.min');
 define('JQUERY_CORE', 'js/jquery-1.4.4.min');
+define('CSS_DATATABLE', 'css/demo_table_jui');
 define('JQUERY_UI', 'js/jquery-ui-1.8.7.custom.min');
 define('JQUERY_TIPTIP', 'js/jquery.tipTip.minified');
 define('LINKIGNITER_UTILS', 'js/utils');
