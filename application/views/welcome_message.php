@@ -47,7 +47,7 @@ code {
 
 <p>LinkIgniter is a modified version of CodeIgniter 1.7.3. It comes bundled with Doctrine ORM, and is restructured the following way:</p>
 <code>
-  /application/ &lt- The application folder has been moved here.<br>
+  /application/ &lt;- The application folder has been moved here.<br>
   /public/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;- all public files and folders should go there, css and js files, etc. Your server's DocumentRoot should point here<br>
   /system/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;- Classic system folder, nothing to modify or see here.<br>
   /utilities/ &nbsp;&nbsp;&lt;- Contains the Doctrine CLI
