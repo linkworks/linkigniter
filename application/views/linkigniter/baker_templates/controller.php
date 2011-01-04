@@ -4,7 +4,7 @@
  * 
  * @author Ian Murray
  */
-class {controller_name} extends MY_Controller
+class {controller_name} extends LI_Controller
 {
   public function __construct()
   {
