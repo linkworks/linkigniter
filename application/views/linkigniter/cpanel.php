@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>LinkIgniter Cpanel</title>
-  <script type="text/javascript" src="<?php echo base_url() ?>js/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>js/jquery-1.4.4.min.js"></script>
   <style type="text/css">
   #container
   {
