@@ -10,6 +10,7 @@ LinkIgniter is a modified version of [CodeIgniter][1].
   - **Test Console:** When developing, you will notice a small console in the bottom of all pages, which enables you to test Doctrine queries and stuff. Give it a try! *(This component is still in VERY early development stages)*
   - **Doctrine CLI**: Once you've created your YAML schemas in the `application/database/schema` folder, you can use the included Doctrine CLI in the `utilities` folder, or use the included script `utilities/create-all-load-data` which drops the database, creates a new one, loads the tables, creates the models and loads all fixtures (use this script with care though, it can bite).
   - **Code Baker**: One of the great features of Cake is it's code baker. We've re-created it (using their Inflector class). Once you've created all database tables, point your browser to http://localhost/linkigniter and press the *Bake these tables* button. This will create a complete scaffolding interface with [Datatables][2] included! Give it a try, it's awesome! You can even edit the templates used in the `application/views/linkigniter/baker_templates` folder to customize your design. *(This feature currently works on PHP versions prior to 5.3).*
+  - **Action Filters**: Rails-like before\_filters and after\_filters. Just create a method in LI\_Controller or your normal controllers and add `var $beforeFilters = array('method')` to enable. More examples in the source for `LI_Controller.php` in the application/libraries folder.
 
 ## Word of advice
 
