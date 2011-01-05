@@ -4,9 +4,7 @@ LinkIgniter is a modified version of [CodeIgniter][1].
 
 ## Donations
 
-We welcome donations!
-
-<a href='http://www.pledgie.com/campaigns/14354'><img alt='Click here to lend your support to: LinkIgniter and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/14354.png?skin_name=chrome' border='0' /></a>
+We welcome donations! If you would like to make a contribution please do so using **[Pledgie][pledgie]**. We would be extremely thankful!
 
 ## Features
 
@@ -29,3 +27,4 @@ The included MIT license only applies to our code (the code baker and the layout
 
 [1]: http://codeigniter.com
 [2]: http://www.datatables.net
+[pledgie]: http://www.pledgie.com/campaigns/14354
