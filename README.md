@@ -2,6 +2,12 @@
 
 LinkIgniter is a modified version of [CodeIgniter][1].
 
+## Donations
+
+We welcome donations!
+
+<a href='http://www.pledgie.com/campaigns/14354'><img alt='Click here to lend your support to: LinkIgniter and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/14354.png?skin_name=chrome' border='0' /></a>
+
 ## Features
 
   - **New directory structure:** The application folder now resides in the root of the project folder, so that the system folder is easily replaceable by any updates. All public files now reside in the `public` folder, which is where the DocumentRoot of the webserver should now point to. This provides better security by isolating all sensitive files.
