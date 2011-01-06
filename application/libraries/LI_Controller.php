@@ -30,6 +30,8 @@ abstract class LI_Controller extends Controller
     parent::Controller();
   }
   
+  // -----------------------------------------------------------------------------------
+  
   /**
    * Checks valid date in forms. Does not validate if field is empty.
    *
@@ -51,5 +53,20 @@ abstract class LI_Controller extends Controller
     }
     
     return TRUE;
+  }
+  
+  // -----------------------------------------------------------------------------------
+  
+  /**
+   * Checks if request is made from ajax (most javascript frameworks send this header,
+   * but that doesn't mean this method will work 100% of the time, don't rely completely
+   * on it).
+   *
+   * @return boolean
+   * @author Ian Murray
+   */
+  public function is_ajax()
+  {
+    return ( ! empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
   }
 }
