@@ -23,6 +23,8 @@
   -moz-box-shadow: 0px 0px 10px #666; 
   -webkit-box-shadow: 0px 0px 10px #666; 
   box-shadow: 0px 0px 10px #666; 
+  
+  z-index:5;
 }
 
 #linkigniter_command
