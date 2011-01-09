@@ -88,7 +88,7 @@ class CSRF_Protection
     $output = $this->CI->output->get_output();
     
     // Inject into form
-    $output = preg_replace('/(<(form|FORM).*(method|METHOD)="(post|POST)".*>)/', 
+    $output = preg_replace('/(<(form|FORM)[^>]*(method|METHOD)="(post|POST)"[^>]*>)/',
                            '$0<input type="hidden" name="' . self::$token_name . '" value="' . self::$token . '">', 
                            $output);
     
