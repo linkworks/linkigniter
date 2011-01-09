@@ -79,7 +79,7 @@ $autoload['plugin'] = array('doctrine_pi');
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('linkigniter');
 
 
 /*
