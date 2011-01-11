@@ -15,6 +15,7 @@ We welcome donations! If you would like to make a contribution please do so usin
   - **Doctrine CLI**: Once you've created your YAML schemas in the `application/database/schema` folder, you can use the included Doctrine CLI in the `utilities` folder, or use the included script `utilities/create-all-load-data` which drops the database, creates a new one, loads the tables, creates the models and loads all fixtures (use this script with care though, it can bite).
   - **Code Baker**: One of the great features of Cake is its code baker. We've re-created it (using their Inflector class). Once you've created all database tables, point your browser to http://localhost/linkigniter and press the *Bake these tables* button. This will create a complete scaffolding interface with [Datatables][2] included! Give it a try, it's awesome! You can even edit the templates used in the `application/views/linkigniter/baker_templates` folder to customize your design. *(This feature currently works on PHP versions prior to 5.3).*
   - **Action Filters**: Rails-like before\_filters and after\_filters. Just create a method in LI\_Controller or your normal controllers and add `var $beforeFilters = array('method')` to enable. More examples in the source for `LI_Controller.php` in the application/libraries folder.
+  - **Automagic CSRF protection**: CSRF ([Cross-site request forgery][csrf]) protection is enabled by default on LinkIgniter. It automatically secures all forms on your views by adding a randomly generated token to each form (whether they're created using the form helper or not, it doesn't matter), and checking said token on each POST request. The library also adds meta headers to your views so you can add the token to ajax requests. Painless CSRF protection!
 
 ## Word of advice
 
@@ -28,3 +29,4 @@ The included MIT license only applies to our code (the code baker and the layout
 [1]: http://codeigniter.com
 [2]: http://www.datatables.net
 [pledgie]: http://www.pledgie.com/campaigns/14354
+[csrf]: http://en.wikipedia.org/wiki/CSRF
